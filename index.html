@@ -30,7 +30,7 @@ body {
 /* OVERLAY UI */
 .interactive-overlay {
     position: absolute;
-    top: 95px; /* adjust if needed */
+    top: 90px; /* adjust if needed */
     left: 16px;
     right: 16px;
     height: 72px;
@@ -217,9 +217,9 @@ let visible = false;
 document.getElementById("eyeToggle").onclick = () => {
     visible = !visible;
 
-    document.getElementById("bal").innerText = visible ? "30.24" : "XXXX.XX";
+    document.getElementById("bal").innerText = visible ? "16.24" : "XXXX.XX";
     document.getElementById("pts").innerText = visible ? "24.77" : "XXXX.XX";
-    document.getElementById("curr").innerText = visible ? "NRS" : "NPR";
+    document.getElementById("curr").innerText = visible ? "NRS" : "NRS";
 
     document.getElementById("eyeOff").style.display = visible ? "none" : "block";
     document.getElementById("eyeOn").style.display = visible ? "block" : "none";
