@@ -228,3 +228,148 @@ document.getElementById("eyeToggle").onclick = () => {
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Green QR Button</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    font-family: Arial, sans-serif;
+  }
+
+  .circle {
+    width: 230px;
+    height: 230px;
+    background: #6bd15c;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  .circle:active {
+    transform: scale(0.96);
+  }
+
+  .qr {
+    position: relative;
+    width: 110px;
+    height: 110px;
+  }
+
+  .box {
+    width: 42px;
+    height: 42px;
+    border: 7px solid white; /* thicker */
+    border-radius: 10px;
+    position: absolute;
+    box-sizing: border-box;
+  }
+
+  .box::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* tighter spacing */
+  .top-left { top: 5px; left: 5px; }
+  .top-right { top: 5px; right: 5px; }
+  .bottom-left { bottom: 5px; left: 5px; }
+
+  /* dots cluster */
+  .dots {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 9px);
+    grid-gap: 5px;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  /* message popup */
+  .message {
+    position: fixed;
+    bottom: 40px;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .message.show {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="circle" id="qrButton">
+  <div class="qr">
+    <div class="box top-left"></div>
+    <div class="box top-right"></div>
+    <div class="box bottom-left"></div>
+
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<div class="message" id="message">Please try again later.</div>
+
+<script>
+  // Dot pattern
+  const dotsContainer = document.getElementById("dots");
+  const pattern = [
+    1,1,0,
+    0,1,1,
+    0,0,1
+  ];
+
+  pattern.forEach(val => {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    if (!val) dot.style.opacity = "0";
+    dotsContainer.appendChild(dot);
+  });
+
+  // Button click behavior
+  const btn = document.getElementById("qrButton");
+  const msg = document.getElementById("message");
+
+  btn.addEventListener("click", () => {
+    msg.classList.add("show");
+
+    setTimeout(() => {
+      msg.classList.remove("show");
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>
