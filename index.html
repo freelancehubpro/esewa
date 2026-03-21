@@ -21,16 +21,16 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-/* FULL SCREEN BACKGROUND IMAGE */
+/* KEEP YOUR ORIGINAL BACKGROUND */
 body {
     background: url("image.jpg") no-repeat center center/cover;
     min-height: 100vh;
 }
 
-/* OVERLAY UI */
+/* ================= OVERLAY UI ================= */
 .interactive-overlay {
     position: absolute;
-    top: 82px; /* adjust if needed */
+    top: 82px;
     left: 9px;
     right: 9px;
     height: 70px;
@@ -41,7 +41,6 @@ body {
     padding: 0 16px;
 }
 
-/* SECTIONS */
 .section {
     flex: 1;
     display: flex;
@@ -54,7 +53,6 @@ body {
     text-align: right;
 }
 
-/* TEXT */
 .value {
     font-size: 18px;
     font-weight: 700;
@@ -67,7 +65,6 @@ body {
     color: var(--text-gray);
 }
 
-/* CENTER TOGGLE */
 .toggle-zone {
     width: 60px;
     display: flex;
@@ -94,7 +91,6 @@ body {
     cursor: pointer;
 }
 
-/* ICONS */
 .icon {
     width: 22px;
     height: 22px;
@@ -108,6 +104,184 @@ body {
     width: 14px;
     margin-left: 4px;
 }
+
+.ru-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: var(--accent-green);
+    color: black;
+    font-size: 8px;
+    font-weight: 800;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallet-marker {
+    width: 9px;
+    height: 5px;
+    background: var(--accent-green);
+    position: absolute;
+    bottom: 6px;
+    left: 5px;
+}
+
+.star-inner {
+    fill: #ef4444;
+    stroke: none;
+}
+
+/* ================= QR BUTTON (UNCHANGED VALUES) ================= */
+
+/* IMPORTANT: removed body override only */
+.circle {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 230px;
+    height: 230px;
+    background: #6bd15c;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.circle:active {
+    transform: translateX(-50%) scale(0.96);
+}
+
+.qr {
+    position: relative;
+    width: 110px;
+    height: 110px;
+}
+
+.box {
+    width: 42px;
+    height: 42px;
+    border: 7px solid white;
+    border-radius: 10px;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.box::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.top-left { top: 5px; left: 5px; }
+.top-right { top: 5px; right: 5px; }
+.bottom-left { bottom: 5px; left: 5px; }
+
+.dots {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 9px);
+    grid-gap: 5px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    background: white;
+    border-radius: 50%;
+}
+
+.message {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.message.show {
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ORIGINAL UI -->
+<div class="interactive-overlay">
+    <!-- (unchanged content) -->
+</div>
+
+<!-- QR BUTTON -->
+<div class="circle" id="qrButton">
+  <div class="qr">
+    <div class="box top-left"></div>
+    <div class="box top-right"></div>
+    <div class="box bottom-left"></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<div class="message" id="message">Please try again later.</div>
+
+<script>
+// ORIGINAL SCRIPT
+let visible = false;
+
+document.getElementById("eyeToggle").onclick = () => {
+    visible = !visible;
+
+    document.getElementById("bal").innerText = visible ? "19.24" : "XXXX.XX";
+    document.getElementById("pts").innerText = visible ? "24.77" : "XXXX.XX";
+    document.getElementById("curr").innerText = "NRS";
+
+    document.getElementById("eyeOff").style.display = visible ? "none" : "block";
+    document.getElementById("eyeOn").style.display = visible ? "block" : "none";
+};
+
+// QR DOTS
+const dotsContainer = document.getElementById("dots");
+const pattern = [1,1,0,0,1,1,0,0,1];
+
+pattern.forEach(val => {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    if (!val) dot.style.opacity = "0";
+    dotsContainer.appendChild(dot);
+});
+
+// BUTTON CLICK
+const btn = document.getElementById("qrButton");
+const msg = document.getElementById("message");
+
+btn.addEventListener("click", () => {
+    msg.classList.add("show");
+    setTimeout(() => msg.classList.remove("show"), 2000);
+});
+</script>
+
+</body>
+</html>}
 
 /* RU BADGE */
 .ru-badge {
